@@ -15,6 +15,14 @@ html {
   height: 100vh;
 }
 
+@media (max-width: 700px) {
+  .App {
+    margin: 0 auto;
+        padding: 12px;
+
+  }
+  
+}
 
 
 
