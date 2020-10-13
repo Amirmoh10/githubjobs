@@ -1,11 +1,14 @@
 import React from "react";
+import Header from "../header/header";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import PublicIcon from "@material-ui/icons/Public";
-import Checkbox from "@material-ui/core/Checkbox";
 import { iconStyle } from "../../iconStyle";
+import Checkbox from "@material-ui/core/Checkbox";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import clsx from "clsx";
 
-import "./sideNav.css";
+import "./homePage.css";
 
 const useStyles = makeStyles({
   root: {
@@ -18,6 +21,8 @@ const useStyles = makeStyles({
     height: "18px",
     border: "1px solid #B9BDCF",
     borderRadius: "2px",
+    position: "relative",
+    right: "10px",
   },
   checkedIcon: {
     "&:before": {
@@ -34,6 +39,119 @@ const useStyles = makeStyles({
     },
   },
 });
+function HomePage({
+  jobs,
+  setSelectedJob,
+  setJobName,
+  setLocation,
+  setFullTime,
+}) {
+  return (
+    <div>
+      <Header setJobName={setJobName} />
+      <div className="content">
+        <SideNav setLocation={setLocation} setFullTime={setFullTime} />
+        <JobCardsContainer jobs={jobs} setSelectedJob={setSelectedJob} />
+      </div>
+    </div>
+  );
+}
+
+export default HomePage;
+
+function JobCardsContainer({ jobs, setSelectedJob }) {
+  function onClick(event) {
+    const newJobArray = jobs.filter((job) => job.id === event.target.id);
+    setSelectedJob(newJobArray);
+  }
+  return (
+    <div className="jobCardsContainer">
+      {jobs.map((job) => {
+        return (
+          <Link to="/job" className="jobCard" key={job.id} onClick={onClick}>
+            <div className="companyInfo1">
+              <div className="companyLogoBox">
+                {job.company_logo ? (
+                  <img
+                    className="companyLogo"
+                    src={`${job.company_logo}`}
+                    alt=""
+                  />
+                ) : (
+                  <div className="companyLogoNotFoundBox">
+                    <p className="companyLogoNotFound">not found</p>
+                  </div>
+                )}
+              </div>
+              <div className="jobInfoTextBox" id={job.id}>
+                <div className="JobcompanyName">
+                  <p>{`${job.company}`}</p>
+                </div>
+                <div className="jobName">
+                  <p id={job.id}>{job.title}</p>
+                </div>
+                <div className="jobType">
+                  <p>{job.type}</p>
+                </div>
+              </div>
+            </div>
+            <div className="jobInfoBox">
+              <div className="jobLocation1">
+                <div className="icon">
+                  <PublicIcon style={iconStyle} />
+                </div>
+                <div >
+                  <p className="jobInfoText">{job.location}</p>
+                </div>
+              </div>
+              <div className="jobTimePosted1">
+                <div className="icon">
+                  <AccessTimeIcon className="jobInfoIcon" style={iconStyle} />
+                </div>
+                <JobPostedTime jobTime={job.created_at} />
+              </div>
+            </div>
+          </Link>
+        );
+      })}
+    </div>
+  );
+}
+
+export function JobPostedTime({ jobTime }) {
+  let jobPostedTime = null;
+  if (Math.abs(new Date().getDate() - new Date(jobTime).getDate()) === 0) {
+    jobPostedTime = (
+      <div>
+        <p>
+          Today
+        </p>
+      </div>
+    );
+  }
+  else if (Math.abs(new Date().getDate() - new Date(jobTime).getDate()) === 1) {
+    jobPostedTime = (
+      <div >
+        <p>
+          {Math.abs(
+            new Date().getDate() - new Date(jobTime).getDate()
+          ).toString() + " day ago"}
+        </p>
+      </div>
+    );
+  }
+  else if (Math.abs(new Date().getDate() - new Date(jobTime).getDate()) > 1) {
+    jobPostedTime = (
+      <div>
+        {Math.abs(
+          new Date().getDate() - new Date(jobTime).getDate()
+        ).toString() + " days ago"}
+      </div>
+    );
+  }
+
+  return jobPostedTime;
+}
 
 function SideNav({ setLocation, setFullTime }) {
   const classes = useStyles();
@@ -139,5 +257,3 @@ function SideNav({ setLocation, setFullTime }) {
     </div>
   );
 }
-
-export default SideNav;

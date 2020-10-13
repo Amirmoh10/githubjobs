@@ -1,19 +1,15 @@
 import React from "react";
-import "../../App.css";
-
+import "./header.css";
 
 function Header({ setJobName }) {
   return (
     <div>
-      <div className="titleBox">
-        <span className="boldTitle">Github </span>
-        <span className="normalTitle">Jobs </span>
-      </div>
+      <Title/>
       <form className="searchForm">
         <input
-          className="searchInput"
+          className="searchInput searcc"
           type="text"
-          placeholder="Title, companies, expertise or benefits"
+          placeholder="Title, companies, expertise ..."
           onChange={(event) => setJobName(event.target.value)}
         />
         <button className="searchBtn">Search</button>
@@ -23,3 +19,12 @@ function Header({ setJobName }) {
 }
 
 export default Header;
+
+export const Title = ()=>{
+  return (
+    <div className="titleBox">
+      <span className="boldTitle">Github </span>
+      <span className="normalTitle">Jobs </span>
+    </div>
+  );
+}

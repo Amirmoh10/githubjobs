@@ -1,0 +1,173 @@
+.content2 {
+  display: flex;
+}
+
+.jobApplyNav {
+  flex: 0 0 230px;
+  margin-right: 77px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.jobDetails {
+  flex: 1;
+}
+
+.backBox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 33px;
+}
+
+.backTextBox {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  color: #1e86ff;
+}
+
+
+.howApplyBox {
+  font-family: Poppins;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 21px;
+  text-transform: uppercase;
+  color: #b9bdcf;
+  margin-bottom: 16px;
+}
+
+.resumeEmail {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #334680;
+  line-height: 21px;
+}
+
+.jobInformation {
+  display: flex;
+}
+
+.jobTitle {
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  color: #334680;
+  margin-right: 17px;
+}
+.jobtype {
+  border: 1px solid #334680;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 12px;
+  color: #334680;
+  margin-bottom: 3px;
+  padding: 6px 8px;
+}
+
+.jobTimeInfo2 {
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  color: #b9bdcf;
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 32px;
+}
+.jobTime {
+  margin-left: 8.5px;
+}
+
+.companyLogoBox2 {
+  width: 42px;
+  height: 42px;
+  border-radius: 4px;
+}
+
+.companyLogo2 {
+  width: 100%;
+  font-size: 100px;
+  background-position: center;
+  background-size: cover;
+}
+
+.companyLogoNotFoundBox2 {
+  width: 42px;
+  height: 42px;
+  border-radius: 4px;
+  background-color: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.companyLogoNotFound2 {
+  font-weight: 500;
+  font-size: 8px;
+  color: #bdbdbd;
+}
+
+.compLogInfoBox {
+  display: flex;
+}
+.compNameJobLocBox {
+  display: flex;
+  flex-direction: column;
+}
+.companyName2 {
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  margin-left: 12px;
+  margin-bottom: 10px;
+  color: #334680;
+}
+
+.jobLocBox {
+  display: flex;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  color: #b9bdcf;
+  margin-left: 12px;
+  margin-bottom: 30px;
+}
+
+.jobLocText {
+  margin-left: 7.5px;
+}
+
+.htmlText {
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  /* or 24px */
+
+  color: #334680;
+  margin-bottom: 196px;
+}
+
+.htmlText p {
+  padding-top: 20px;
+}
