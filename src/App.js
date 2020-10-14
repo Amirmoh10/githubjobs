@@ -93,13 +93,12 @@ const reducer = (state, action) => {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-
   console.log(state.jobLocation);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const result = await axios(
-          `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?location=${state.typedLocation}`
+          `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=${state.jobName}&location=${state.typedLocation}`
         );
 
         dispatch({
@@ -115,7 +114,7 @@ function App() {
     return () => {
       // clean up
     };
-  }, [state.typedLocation]);
+  }, [state.jobName, state.typedLocation]);
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
@@ -123,16 +122,10 @@ function App() {
           <Router>
             <Switch>
               <Route exact path="/">
-                <HomePage
-                  jobs={state.jobs}
-                  setSelectedJob={state.setSelectedJob}
-                  setJobName={state.setJobName}
-                  setLocation={state.setLocation}
-                  setFullTime={state.setFullTime}
-                />
+                <HomePage />
               </Route>
               <Route exact path="/job">
-                <JobDescription selectedJob={state.selectedJob} />
+                <JobDescription />
               </Route>
             </Switch>
           </Router>
@@ -154,6 +147,7 @@ function Header() {
   }
 
   function onClick() {
+    
     headerDispatch({
       type: ACTION.CLICK_SEARCH,
     });
@@ -216,6 +210,7 @@ const useStyles = makeStyles({
 });
 
 function HomePage() {
+
   return (
     <div>
       <Header />
@@ -456,6 +451,7 @@ const jobDescribStyle = makeStyles({
 });
 
 function JobDescription({ selectedJob }) {
+  const jobDescribState = useContext(StateContext);
   function createMarkup(description) {
     return { __html: `${description}` };
   }
@@ -473,7 +469,7 @@ function JobDescription({ selectedJob }) {
             </div>
           </div>
           <div className="howApplyBox">
-            <div>
+            <div className="howApplyBoxTitle">
               <p>how to apply</p>
             </div>
             <div className="resumeEmail">
@@ -487,14 +483,14 @@ function JobDescription({ selectedJob }) {
         </div>
         <div className="jobDetails">
           <div>
-            {selectedJob.map((job) => {
+            {jobDescribState.selectedJob.map((job) => {
               return (
                 <div key={job.id}>
                   <div className="jobInformation">
                     <div>
                       <p className="jobTitle">{job.title}</p>
                     </div>
-                      <span className="jobtype">{job.type}</span>
+                    <span className="jobtype">{job.type}</span>
                   </div>
                   <div className="jobTimeInfo2">
                     <AccessTimeIcon className="jobInfoIcon" style={iconStyle} />

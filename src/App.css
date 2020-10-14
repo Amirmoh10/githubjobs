@@ -321,15 +321,16 @@ a:visited {
   margin-bottom: 16px;
 }
 
+.howApplyBoxTitle {
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
 .resumeEmail {
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-size: 14px;
   color: #334680;
   line-height: 21px;
-}
-
-.jobInformation {
 }
 
 .jobTitle {
@@ -448,12 +449,12 @@ a:visited {
 
 @media (max-width: 700px) {
   .App {
+    max-width: 370px;
     margin: 0 auto;
     padding: 12px;
   }
 
   .searchForm {
-    width: 351px;
     height: 138px;
     padding: 42px 18px;
     background-image: url("./img/backgroundImg.png");
@@ -465,8 +466,7 @@ a:visited {
   }
 
   .searchInput {
-    width: 315px;
-    height: 55px;
+    
     background: #ffffff;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
@@ -493,13 +493,12 @@ a:visited {
     flex: 0;
   }
   .locationSearchBox {
-    width: 351px;
   }
   .jobCardsContainer {
-    width: 351px;
+    /* width: 351px; */
     height: 147px;
     margin: 26px 12px 32px 0;
-    overflow: hidden;
+    /* overflow: hidden; */
   }
 
   .jobCard {
@@ -531,7 +530,7 @@ a:visited {
 
   .content2 {
     flex-direction: column;
-    width: 75%;
+    /* width:  344px;; */
   }
 
   .jobApplyNav {
@@ -539,11 +538,5 @@ a:visited {
     flex-direction: column;
     justify-content: flex-start;
   }
-  .jobInformation {
-    display: inline;
-  }
-
-  .jobType {
-    display: inline;
-  }
+  
 }
