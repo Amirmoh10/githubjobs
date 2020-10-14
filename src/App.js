@@ -26,7 +26,7 @@ const initialState = {
 const ACTION = {
   JOBTITLE_SEARCH: "JOBTITLE_SEARCH",
   CLICK_SEARCH: "CLICK_SEARCH",
-  LOCATION_SEARCH: "LOCATION_SEARCH",
+  JOBTITLE_EMPTY: "JOBTITLE_EMPTY",
   SUBMIT_SEARCH: "SUBMIT_SEARCH",
   CHECK_LOCATION: "CHECK_LOCATION",
   FETCH_DATA: "FETCH_DATA",
@@ -61,6 +61,7 @@ const reducer = (state, action) => {
         ...state,
         jobLocation: state.typedLocation,
       };
+
     case ACTION.CHECK_LOCATION:
       return {
         ...state,
@@ -93,12 +94,14 @@ const reducer = (state, action) => {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state.jobLocation);
   useEffect(() => {
+    console.log("value of jobname:" + state.jobName);
+    console.log("value of location:" + state.jobLocation);
+
     const fetchData = async () => {
       try {
         const result = await axios(
-          `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=${state.jobName}&location=${state.typedLocation}`
+          `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=${state.jobName}&location=${state.jobLocation}`
         );
 
         dispatch({
@@ -110,11 +113,7 @@ function App() {
       }
     };
     fetchData();
-
-    return () => {
-      // clean up
-    };
-  }, [state.jobName, state.typedLocation]);
+  }, [state.jobName, state.jobLocation]);
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
@@ -139,6 +138,7 @@ export default App;
 
 function Header() {
   const headerDispatch = useContext(DispatchContext);
+
   function onChange(event) {
     headerDispatch({
       type: ACTION.JOBTITLE_SEARCH,
@@ -146,26 +146,25 @@ function Header() {
     });
   }
 
-  function onClick() {
-    
+  function onSubmit(event) {
+    event.preventDefault();
     headerDispatch({
       type: ACTION.CLICK_SEARCH,
     });
+    event.target.reset();
   }
   return (
     <div>
       <Title />
-      <div className="searchForm">
+      <form className="searchForm" onSubmit={onSubmit}>
         <input
           className="searchInput"
           type="text"
           placeholder="Title, companies, expertise ..."
           onChange={onChange}
         />
-        <button className="searchBtn" onClick={onClick}>
-          Search
-        </button>
-      </div>
+        <button className="searchBtn">Search</button>
+      </form>
     </div>
   );
 }
@@ -210,7 +209,6 @@ const useStyles = makeStyles({
 });
 
 function HomePage() {
-
   return (
     <div>
       <Header />
@@ -332,7 +330,13 @@ function SideNav() {
       value: event.target.value,
     });
   }
-
+  function onSubmit(event) {
+    event.preventDefault();
+    sideNavDispatch({
+      type: ACTION.SUBMIT_SEARCH,
+    });
+    event.target.reset();
+  }
   function onChangeCheckBox(event) {
     if (event.target.checked === true) {
       sideNavDispatch({
@@ -366,7 +370,7 @@ function SideNav() {
       <div className="locationText">
         <p>Location</p>
       </div>
-      <form className="locationSearchBox">
+      <form className="locationSearchBox" onSubmit={onSubmit}>
         <PublicIcon className="locationSearchIcon" style={iconStyle} />
         <input
           className="locationSearchInput"
