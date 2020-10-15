@@ -20,17 +20,21 @@ const initialState = {
   jobLocation: "",
   jobs: [],
   selectedJob: [],
+
   // fullTime: false,
 };
 
 const ACTION = {
   JOBTITLE_SEARCH: "JOBTITLE_SEARCH",
   CLICK_SEARCH: "CLICK_SEARCH",
-  JOBTITLE_EMPTY: "JOBTITLE_EMPTY",
+  JOBTITLE_CLEAR: "JOBTITLE_CLEAR",
+  LOCATION_SEARCH: "LOCATION_SEARCH",
   SUBMIT_SEARCH: "SUBMIT_SEARCH",
+  LOCATION_CLEAR: "LOCATION_CLEAR",
   CHECK_LOCATION: "CHECK_LOCATION",
   FETCH_DATA: "FETCH_DATA",
   SELECT_JOB: "SELECT_JOB",
+  REFRESH_PAGE: "REFRESH_PAGE",
 
   // FETCH_DATA_SUCCESS: "FETCH_DATA_SUCCESS",
   // FETCH_DATA_FAIL: "FETCH_DATA_FAIL",
@@ -50,6 +54,12 @@ const reducer = (state, action) => {
         jobName: state.typedJobName,
       };
 
+    case ACTION.JOBTITLE_CLEAR:
+      return {
+        ...state,
+        jobName: " ",
+      };
+
     case ACTION.LOCATION_SEARCH:
       return {
         ...state,
@@ -60,6 +70,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         jobLocation: state.typedLocation,
+      };
+    case ACTION.LOCATION_CLEAR:
+      return {
+        ...state,
+        jobLocation: " ",
       };
 
     case ACTION.CHECK_LOCATION:
@@ -87,6 +102,14 @@ const reducer = (state, action) => {
       };
     }
 
+    case ACTION.REFRESH_PAGE: {
+      return {
+        ...state,
+        jobName: "",
+        jobLocation: "",
+      };
+    }
+
     default:
       return state;
   }
@@ -94,10 +117,8 @@ const reducer = (state, action) => {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  useEffect(() => {
-    console.log("value of jobname:" + state.jobName);
-    console.log("value of location:" + state.jobLocation);
 
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const result = await axios(
@@ -114,6 +135,7 @@ function App() {
     };
     fetchData();
   }, [state.jobName, state.jobLocation]);
+
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
@@ -140,18 +162,24 @@ function Header() {
   const headerDispatch = useContext(DispatchContext);
 
   function onChange(event) {
-    headerDispatch({
-      type: ACTION.JOBTITLE_SEARCH,
-      value: event.target.value,
-    });
+    if (event.target.value !== "") {
+      headerDispatch({
+        type: ACTION.JOBTITLE_SEARCH,
+        value: event.target.value,
+      });
+    } else {
+      headerDispatch({
+        type: ACTION.JOBTITLE_CLEAR,
+      });
+    }
   }
 
   function onSubmit(event) {
     event.preventDefault();
+
     headerDispatch({
       type: ACTION.CLICK_SEARCH,
     });
-    event.target.reset();
   }
   return (
     <div>
@@ -234,6 +262,7 @@ function JobCardsContainer() {
       value: newjobArray,
     });
   }
+
   return (
     <div className="jobCardsContainer">
       {jobCardsContainerState.jobs.map((job) => {
@@ -325,17 +354,22 @@ function SideNav() {
   const sideNavDispatch = useContext(DispatchContext);
 
   function onChange(event) {
-    sideNavDispatch({
-      type: ACTION.LOCATION_SEARCH,
-      value: event.target.value,
-    });
+    if (event.target.value !== "") {
+      sideNavDispatch({
+        type: ACTION.LOCATION_SEARCH,
+        value: event.target.value,
+      });
+    } else {
+      sideNavDispatch({
+        type: ACTION.LOCATION_CLEAR,
+      });
+    }
   }
   function onSubmit(event) {
     event.preventDefault();
     sideNavDispatch({
       type: ACTION.SUBMIT_SEARCH,
     });
-    event.target.reset();
   }
   function onChangeCheckBox(event) {
     if (event.target.checked === true) {
@@ -454,10 +488,17 @@ const jobDescribStyle = makeStyles({
   },
 });
 
-function JobDescription({ selectedJob }) {
+function JobDescription() {
   const jobDescribState = useContext(StateContext);
+  const jobDescribDispatch = useContext(DispatchContext);
   function createMarkup(description) {
     return { __html: `${description}` };
+  }
+
+  function onClick() {
+    jobDescribDispatch({
+      type: ACTION.REFRESH_PAGE,
+    });
   }
 
   const classes = jobDescribStyle();
@@ -469,7 +510,9 @@ function JobDescription({ selectedJob }) {
           <div className="backBox">
             <ArrowRightAltIcon className={classes.root} />
             <div className="backTextBox">
-              <Link to="/">Back to search</Link>
+              <Link to="/" onClick={onClick}>
+                Back to search
+              </Link>
             </div>
           </div>
           <div className="howApplyBox">
