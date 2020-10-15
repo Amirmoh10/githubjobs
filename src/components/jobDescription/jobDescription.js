@@ -8,7 +8,7 @@ import DispatchContext from "../../dispatchContext";
 import StateContext from "../../stateContext";
 import { Link } from "react-router-dom";
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
-import Title from "../header/header";
+import {Title} from "../header/header";
 import JobPostedTime from "../jobCardsContainer/jobCardsContainer";
 
 import "../../App.css";
