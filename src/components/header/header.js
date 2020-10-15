@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import DispatchContext from "../../dispatchContext";
 import { ACTION } from "../../App";
 
-import "../../App.css";
+import "./header.css";
 
 function Header() {
   const headerDispatch = useContext(DispatchContext);
