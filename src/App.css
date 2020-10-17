@@ -475,7 +475,7 @@ a:visited {
   .App {
     max-width: 375px;
     margin: 0 auto;
-    padding-left: 40px;
+    padding-left: 12px;
   }
 
   .searchForm {
@@ -517,7 +517,6 @@ a:visited {
   }
 
   .jobCardsContainer {
-    height: 147px;
     margin: 26px 12px 32px 0;
   }
 
