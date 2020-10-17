@@ -2,7 +2,7 @@
 
 Click on this [link](https://hungry-joliot-c809a6.netlify.app/) and test it. 
 
-## Available Scripts
+## Run in development
 
 In the project directory, you can run:
 
