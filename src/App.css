@@ -91,20 +91,6 @@ html {
   height: 100vh;
 }
 
-.footer {
-  width: 100%;
-  padding: 1.5em;
-  margin: 60px;
-  font-family: "Montserrat", sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 17px;
-  color: #b9bdcf;
-  display: flex;
-  justify-content: center;
-}
-
 /* sideNav*/
 
 .content {
@@ -294,6 +280,49 @@ html {
 .jobTimePosted1 {
   flex: 0 0 90px;
   margin-left: 28.5px;
+}
+
+/*Footer*/
+
+.footer {
+  width: 100%;
+  padding: 1.5em;
+  margin: 60px;
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  color: #b9bdcf;
+  display: flex;
+  justify-content: center;
+}
+
+/*pageButtons*/
+.pageButtons{
+  display: flex;
+  justify-content: flex-end;
+}
+.normalStyle {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #b7bcce;
+  color: #b7bcce;
+  border-radius: 4px;
+  margin: 0 12px;
+  background-color: #f6f7fb;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.37);
+}
+
+.clickedStyle {
+  background-color: #1e86ff;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #b7bcce;
+  color: white;
+  border-radius: 4px;
+  margin: 0 12px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.37);
 }
 
 /* jobdescription*/

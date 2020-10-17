@@ -116,7 +116,7 @@ const reducer = (state, action) => {
     case ACTION.CLICK_PAGE: {
       return {
         ...state,
-        page: action,
+        page: action.value,
       };
     }
 
@@ -147,7 +147,6 @@ function App() {
     };
     fetchData();
   }, [state.jobName, state.jobLocation, state.isFullTime, state.page]);
-
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
