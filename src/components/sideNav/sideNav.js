@@ -5,6 +5,11 @@ import DispatchContext from "../../dispatchContext";
 import Checkbox from "@material-ui/core/Checkbox";
 import PublicIcon from "@material-ui/icons/Public";
 import { iconStyle } from "../../iconStyle";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+
 import clsx from "clsx";
 
 import "../../App.css";
@@ -37,7 +42,62 @@ const useStyles = makeStyles({
       content: '""',
     },
   },
+
+  
+
+  radioIcon: {
+    borderRadius: "50%",
+    width: 18,
+    height: 18,
+    boxShadow:
+      "inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)",
+    // backgroundColor: "transparent",
+    backgroundImage:
+      "linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))",
+    "$root.Mui-focusVisible &": {
+      outline: "2px auto rgba(19,124,189,.6)",
+      outlineOffset: 2,
+    },
+    fontSize: "10px",
+  },
+  radioCheckedIcon: {
+    backgroundColor: "#137cbd",
+    backgroundImage:
+      "linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))",
+    "&:before": {
+      display: "block",
+      width: 18,
+      height: 18,
+      backgroundImage: "radial-gradient(#fff,#fff 28%,transparent 32%)",
+      content: '""',
+    },
+    "input:hover ~ &": {
+      backgroundColor: "#106ba3",
+    },
+  },
+  label: {
+    fontWeight: "500",
+    fontSize: "14px",
+    lineHeight: "12px",
+    color: "#334680",
+  },
 });
+
+function StyledRadio(props) {
+  const classes = useStyles();
+
+  return (
+    <Radio
+      className={classes.root}
+      color="default"
+      checkedIcon={
+        <span className={clsx(classes.radioIcon, classes.radioCheckedIcon)} />
+      }
+      icon={<span className={classes.radioIcon} />}
+      {...props}
+    />
+  );
+}
 
 function SideNav() {
   const sideNavDispatch = useContext(DispatchContext);
@@ -60,16 +120,30 @@ function SideNav() {
       type: ACTION.SUBMIT_SEARCH,
     });
   }
-  function onChangeCheckBox(event) {
+  function handleChange(event) {
     if (event.target.checked === true) {
       sideNavDispatch({
         type: ACTION.CHECK_LOCATION,
-        value: event.target.name,
+        value: event.target.value,
       });
     } else {
       sideNavDispatch({
         type: ACTION.CHECK_LOCATION,
         value: " ",
+      });
+    }
+  }
+
+  function onChangeFullTime(event) {
+    if (event.target.checked === true) {
+      sideNavDispatch({
+        type: ACTION.CHECK_FULLTIME,
+        value: "true",
+      });
+    } else {
+      sideNavDispatch({
+        type: ACTION.CHECK_FULLTIME,
+        value: "false",
       });
     }
   }
@@ -87,6 +161,7 @@ function SideNav() {
           }
           icon={<span className={classes.icon} />}
           inputProps={{ "aria-label": "decorative checkbox" }}
+          onChange={onChangeFullTime}
         />
         <span className="filterText">Full time</span>
       </div>
@@ -98,70 +173,53 @@ function SideNav() {
         <input
           className="locationSearchInput"
           type="text"
-          placeholder="City, state, zip code or country"
+          placeholder="Country, City, or State"
           onChange={onChange}
         />
       </form>
       <div className="locationCountries">
         <div className="locationCountry">
-          <Checkbox
-            className={classes.root}
-            disableRipple
-            color="default"
-            checkedIcon={
-              <span className={clsx(classes.icon, classes.checkedIcon)} />
-            }
-            icon={<span className={classes.icon} />}
-            inputProps={{ "aria-label": "decorative checkbox" }}
-            name="London"
-            onChange={onChangeCheckBox}
-          />
-          <span className="filterText">London</span>
-        </div>
-        <div className="locationCountry">
-          <Checkbox
-            className={classes.root}
-            disableRipple
-            color="default"
-            checkedIcon={
-              <span className={clsx(classes.icon, classes.checkedIcon)} />
-            }
-            icon={<span className={classes.icon} />}
-            inputProps={{ "aria-label": "decorative checkbox" }}
-            name="Amsterdam"
-            onChange={onChangeCheckBox}
-          />
-          <span className="filterText">Amsterdam</span>
-        </div>
-        <div className="locationCountry">
-          <Checkbox
-            className={classes.root}
-            disableRipple
-            color="default"
-            checkedIcon={
-              <span className={clsx(classes.icon, classes.checkedIcon)} />
-            }
-            icon={<span className={classes.icon} />}
-            inputProps={{ "aria-label": "decorative checkbox" }}
-            name="New York"
-            onChange={onChangeCheckBox}
-          />
-          <span className="filterText">New York</span>
-        </div>
-        <div className="locationCountry">
-          <Checkbox
-            className={classes.root}
-            disableRipple
-            color="default"
-            checkedIcon={
-              <span className={clsx(classes.icon, classes.checkedIcon)} />
-            }
-            icon={<span className={classes.icon} />}
-            inputProps={{ "aria-label": "decorative checkbox" }}
-            name="Berlin"
-            onChange={onChangeCheckBox}
-          />
-          <span className="filterText">Berlin</span>
+          <FormControl component="fieldset">
+            <RadioGroup>
+              <FormControlLabel
+                className="filterText"
+                value="London"
+                control={<StyledRadio />}
+                label="London"
+                classes={{
+                  label: classes.label,
+                }}
+                onChange={handleChange}
+              />
+              <FormControlLabel
+                value="Amsterdam"
+                control={<StyledRadio />}
+                label="Amsterdam"
+                classes={{
+                  label: classes.label,
+                }}
+                onChange={handleChange}
+              />
+              <FormControlLabel
+                value="New York"
+                control={<StyledRadio />}
+                label="New York"
+                classes={{
+                  label: classes.label,
+                }}
+                onChange={handleChange}
+              />
+              <FormControlLabel
+                value="Berlin"
+                control={<StyledRadio />}
+                label="Berlin"
+                classes={{
+                  label: classes.label,
+                }}
+                onChange={handleChange}
+              />
+            </RadioGroup>
+          </FormControl>
         </div>
       </div>
     </div>
@@ -169,3 +227,64 @@ function SideNav() {
 }
 
 export default SideNav;
+
+//
+//           <Checkbox
+//             className={classes.root}
+//             disableRipple
+//             color="default"
+//             checkedIcon={
+//               <span className={clsx(classes.icon, classes.checkedIcon)} />
+//             }
+//             icon={<span className={classes.icon} />}
+//             inputProps={{ "aria-label": "decorative checkbox" }}
+//             name="London"
+//             onChange={onChangeCheckBox}
+//           />
+//           <span className="filterText">London</span>
+//         </div>
+//         <div className="locationCountry">
+//           <Checkbox
+//             className={classes.root}
+//             disableRipple
+//             color="default"
+//             checkedIcon={
+//               <span className={clsx(classes.icon, classes.checkedIcon)} />
+//             }
+//             icon={<span className={classes.icon} />}
+//             inputProps={{ "aria-label": "decorative checkbox" }}
+//             name="Amsterdam"
+//             onChange={onChangeCheckBox}
+//           />
+//           <span className="filterText">Amsterdam</span>
+//         </div>
+//         <div className="locationCountry">
+//           <Checkbox
+//             className={classes.root}
+//             disableRipple
+//             color="default"
+//             checkedIcon={
+//               <span className={clsx(classes.icon, classes.checkedIcon)} />
+//             }
+//             icon={<span className={classes.icon} />}
+//             inputProps={{ "aria-label": "decorative checkbox" }}
+//             name="New York"
+//             onChange={onChangeCheckBox}
+//           />
+//           <span className="filterText">New York</span>
+//         </div>
+//         <div className="locationCountry">
+//           <Checkbox
+//             className={classes.root}
+//             disableRipple
+//             color="default"
+//             checkedIcon={
+//               <span className={clsx(classes.icon, classes.checkedIcon)} />
+//             }
+//             icon={<span className={classes.icon} />}
+//             inputProps={{ "aria-label": "decorative checkbox" }}
+//             name="Berlin"
+//             onChange={onChangeCheckBox}
+//           />
+//           <span className="filterText">Berlin</span>
+//         </div>

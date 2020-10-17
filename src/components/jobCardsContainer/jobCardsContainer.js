@@ -7,12 +7,13 @@ import DispatchContext from "../../dispatchContext";
 import StateContext from "../../stateContext";
 import { Link } from "react-router-dom";
 
+
+
 import "../../App.css";
 
 function JobCardsContainer() {
   const jobCardsContainerState = useContext(StateContext);
   const jobCardsContainerDispatch = useContext(DispatchContext);
-
   function onClick(event) {
     const newjobArray = jobCardsContainerState.jobs.filter(
       (job) => job.id === event.target.id
@@ -23,12 +24,17 @@ function JobCardsContainer() {
       value: newjobArray,
     });
   }
-
+  
   return (
     <div className="jobCardsContainer">
       {jobCardsContainerState.jobs.map((job) => {
         return (
-          <Link to="/job" className="jobCard" key={job.id} onClick={onClick}>
+          <Link
+            to={`/job/${job.id}`}
+            className="jobCard"
+            key={job.id}
+            onClick={onClick}
+          >
             <div className="companyInfo1">
               <div className="companyLogoBox">
                 {job.company_logo ? (
@@ -76,7 +82,7 @@ function JobCardsContainer() {
       })}
     </div>
   );
-}
+  }
 
 export default JobCardsContainer;
 
