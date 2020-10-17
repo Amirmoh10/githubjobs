@@ -14,7 +14,7 @@ const initialState = {
   jobLocation: "",
   jobs: [],
   selectedJob: [],
-  isFullTime: "",
+  isFullTime: true,
   page:0,
   // fullTime: false,
 };

@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import DispatchContext from "../../dispatchContext";
 import { ACTION } from "../../App";
 import "../../App.css";
-import { Button } from "@material-ui/core";
 
 const buttOneStyle = {
   classes: ["clickedStyle"],
@@ -73,26 +72,3 @@ function Page() {
 
 export default Page;
 
-// function PageOneButton() {
-//   let pageOneButton = null;
-//   pageOneButton = (
-//     <div >
-//       <button  value="1">
-//         1
-//       </button>
-//     </div>
-//   );
-//   return pageOneButton;
-// }
-
-// function PageTwoButton() {
-//   let pageTwoButton = null;
-//   pageTwoButton = (
-//     <div>
-//       <button style={normalStyle} value="1">
-//         2
-//       </button>
-//     </div>
-//   );
-//   return pageTwoButton;
-// }
