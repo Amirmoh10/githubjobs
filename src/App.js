@@ -133,7 +133,7 @@ function App() {
     const fetchData = async () => {
       try {
         const result = await axios(
-          `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=${state.jobName}&full_time=${state.isFullTime}&location=${state.jobLocation}&page=${state.page}`
+          `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=${state.jobName}&location=${state.jobLocation}&page=${state.page}`
         );
 
         dispatch({
@@ -146,7 +146,9 @@ function App() {
       }
     };
     fetchData();
-  }, [state.jobName, state.jobLocation, state.isFullTime, state.page]);
+
+    return ()=>{}
+  }, [state.jobName, state.jobLocation, state.page]);
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>

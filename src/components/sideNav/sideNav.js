@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { ACTION } from "../../App";
 import DispatchContext from "../../dispatchContext";
-import Checkbox from "@material-ui/core/Checkbox";
+// import Checkbox from "@material-ui/core/Checkbox";
 import PublicIcon from "@material-ui/icons/Public";
 import { iconStyle } from "../../iconStyle";
 import Radio from "@material-ui/core/Radio";
@@ -134,37 +134,12 @@ function SideNav() {
     }
   }
 
-  function onChangeFullTime(event) {
-    if (event.target.checked === true) {
-      sideNavDispatch({
-        type: ACTION.CHECK_FULLTIME,
-        value: "true",
-      });
-    } else {
-      sideNavDispatch({
-        type: ACTION.CHECK_FULLTIME,
-        value: "false",
-      });
-    }
-  }
+  
 
   const classes = useStyles();
   return (
     <div className="sideNav">
-      <div className="filterTimeBox">
-        <Checkbox
-          className={classes.root}
-          disableRipple
-          color="default"
-          checkedIcon={
-            <span className={clsx(classes.icon, classes.checkedIcon)} />
-          }
-          icon={<span className={classes.icon} />}
-          inputProps={{ "aria-label": "decorative checkbox" }}
-          onChange={onChangeFullTime}
-        />
-        <span className="filterText">Full time</span>
-      </div>
+      
       <div className="locationText">
         <p>Location</p>
       </div>
@@ -288,3 +263,30 @@ export default SideNav;
 //           />
 //           <span className="filterText">Berlin</span>
 //         </div>
+
+// <div className="filterTimeBox">
+//   <Checkbox
+//     className={classes.root}
+//     disableRipple
+//     color="default"
+//     checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
+//     icon={<span className={classes.icon} />}
+//     inputProps={{ "aria-label": "decorative checkbox" }}
+//     onChange={onChangeFullTime}
+//   />
+//   <span className="filterText">Full time</span>
+// </div>;
+
+// function onChangeFullTime(event) {
+//   if (event.target.checked === true) {
+//     sideNavDispatch({
+//       type: ACTION.CHECK_FULLTIME,
+//       value: "true",
+//     });
+//   } else {
+//     sideNavDispatch({
+//       type: ACTION.CHECK_FULLTIME,
+//       value: "false",
+//     });
+//   }
+// }
