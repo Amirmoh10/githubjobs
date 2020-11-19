@@ -7,8 +7,6 @@ import DispatchContext from "../../dispatchContext";
 import StateContext from "../../stateContext";
 import { Link } from "react-router-dom";
 
-
-
 import "../../App.css";
 
 function JobCardsContainer() {
@@ -24,7 +22,7 @@ function JobCardsContainer() {
       value: newjobArray,
     });
   }
-  
+
   return (
     <div className="jobCardsContainer">
       {jobCardsContainerState.jobs.map((job) => {
@@ -82,7 +80,7 @@ function JobCardsContainer() {
       })}
     </div>
   );
-  }
+}
 
 export default JobCardsContainer;
 

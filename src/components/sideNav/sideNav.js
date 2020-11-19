@@ -101,7 +101,7 @@ function StyledRadio(props) {
 
 function SideNav() {
   const sideNavDispatch = useContext(DispatchContext);
-
+    
   function onChange(event) {
     if (event.target.value !== "") {
       sideNavDispatch({

@@ -166,7 +166,7 @@ html {
 
 .jobCardsContainer {
   flex: 1;
-  max-height: 320px;
+  height: 320px;
   overflow-y: scroll;
   margin: 42px 0 32px 32px;
   padding: 14px;
